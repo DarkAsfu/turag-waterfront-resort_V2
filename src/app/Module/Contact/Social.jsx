@@ -10,7 +10,7 @@ const Social = ({ color, backgroundColor }) => {
   return (
     <div>
       <ul>
-        <li className="flex flex-wrap items-center gap-4">
+        <li className="flex flex-wrap items-center xl:gap-2 2xl:gap-4">
           <a
             style={{ color, backgroundColor }}
             className="hover:bg-primary transition-all border border-[#cccccc] hover:border-primary p-1.5 rounded-full"

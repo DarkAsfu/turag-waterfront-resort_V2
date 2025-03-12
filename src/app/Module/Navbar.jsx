@@ -71,7 +71,7 @@ export default function Navbar() {
       } transition-colors duration-300 relative`}
     >
       <header
-        className={`max-w-[94em] mx-auto grid grid-cols-3 items-center p-2 rounded-md ${
+        className={`max-w-[94em] mx-auto grid grid-cols-2 md:grid-cols-3 items-center p-2 rounded-md ${
           isScrolled ? "backdrop-blur-md" : ""
         }`}
       >
@@ -222,7 +222,7 @@ export default function Navbar() {
             </div>
           </DrawerContent>
         </HeaderDrawer>
-        <a href="/" aria-label="Go to homepage" className="justify-self-center">
+        <a href="/" aria-label="Go to homepage" className="justify-self-end md:justify-self-center">
           <Image
             src={isScrolled ? logoSrc1 : logoSrc}
             alt="Logo"
@@ -230,11 +230,11 @@ export default function Navbar() {
             height={120}
           />
         </a>
-        <div className="flex items-center justify-self-end gap-[5px]">
+        <div className="flex items-center justify-self-end gap-3">
           <div className="hidden xl:block">
             <Social color={"#b89146"} backgroundColor={"white"} />
           </div>
-          <div className="group relative cursor-pointer p-2 w-32 border bg-white rounded-full overflow-hidden text-black text-center font-semibold">
+          <Link href="book-now" className="hidden md:block group relative cursor-pointer p-2 w-32 border bg-white rounded-full overflow-hidden text-black text-center font-semibold">
             <span className="translate-x-1 group-hover:translate-x-12 group-hover:opacity-0 transition-all duration-300 inline-block">
               Book Now
             </span>
@@ -243,7 +243,7 @@ export default function Navbar() {
               <ArrowRight size={18} />
             </div>
             <div className="absolute top-[40%] left-[12%] h-2 w-2 group-hover:h-full group-hover:w-full rounded-lg bg-primary  scale-[1] dark:group-hover:bg-[#e7cb6e] group-hover:bg-primary group-hover:scale-[1.8] transition-all duration-300 group-hover:top-[0%] group-hover:left-[0%] "></div>
-          </div>
+          </Link>
         </div>
       </header>
     </div>
