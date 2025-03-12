@@ -1,0 +1,327 @@
+"use client";
+
+import * as React from "react";
+import { format } from "date-fns";
+import {
+  CalendarIcon,
+  Mail,
+  MapPin,
+  MessageCircle,
+  MoveRight,
+  Phone,
+  UserRound,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Check, ChevronsUpDown } from "lucide-react";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import useRooms from "@/hooks/useRooms";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { Loader2 } from "lucide-react"; // Import the loader icon
+
+const BookingForm = () => {
+  const [checkInDate, setCheckInDate] = React.useState(null);
+  const [checkOutDate, setCheckOutDate] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
+  const [value, setValue] = React.useState("");
+  const [adults, setAdults] = React.useState("");
+  const [children, setChildren] = React.useState("");
+  const [fullName, setFullName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [phone, setPhone] = React.useState("");
+  const [address, setAddress] = React.useState("");
+  const [remarks, setRemarks] = React.useState("");
+  const { rooms, loading, error } = useRooms();
+  const [isLoading, setIsLoading] = React.useState(false); // State to track loading
+
+  const handleSubmit = () => {
+    const formData = {
+      check_in: checkInDate ? format(checkInDate, "yyyy-M-d") : "",
+      check_out: checkOutDate ? format(checkOutDate, "yyyy-M-d") : "",
+      room: rooms.find((room) => room.title === value)?.id || "",
+      adults,
+      children,
+      full_name: fullName,
+      email,
+      phone,
+      address,
+      remarks,
+    };
+
+    // console.log(formData);
+
+    // Set loading state to true when submission starts
+    setIsLoading(true);
+
+    // Make the POST request
+    axios
+      .post("https://api.turagwaterfrontresort.com/api/booking/", formData)
+      .then((response) => {
+        // Handle success
+        console.log("Booking successful:", response.data);
+        Swal.fire({
+          title: "Success!",
+          text: "Your reservation request has been successfully sent. Please check your email for confirmation.",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+        // Reset loading state
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        // Handle error
+        let errorMessage = "There was an issue with your booking. Please try again later.";
+      
+        if (error.response) {
+          // Extracting error messages from the response
+          const responseErrors = error.response.data;
+          let errorDetails = [];
+      
+          // Check for non_field_errors and add them to the error details
+          if (responseErrors.non_field_errors) {
+            errorDetails.push(`General Error: ${responseErrors.non_field_errors.join(", ")}`);
+          }
+      
+          // Build dynamic error message for specific fields
+          Object.keys(responseErrors)
+            .filter((field) => field !== "non_field_errors") // Exclude non_field_errors
+            .forEach((field) => {
+              const fieldErrors = responseErrors[field];
+              errorDetails.push(`${field.charAt(0).toUpperCase() + field.slice(1)}: ${fieldErrors.join(", ")}`);
+            });
+      
+          // Join all error details into one message
+          errorMessage = errorDetails.join("\n");
+      
+          console.error("Error response data:", responseErrors);
+        } else if (error.request) {
+          // If no response was received from the server
+          console.error("No response received:", error.request);
+          errorMessage = "No response received from the server. Please check your internet connection and try again.";
+        } else {
+          // If there was an error setting up the request
+          console.error("Error setting up the request:", error.message);
+          errorMessage = "There was an issue setting up your request. Please try again later.";
+        }
+      
+        // Show error message in SweetAlert
+        Swal.fire({
+          title: "Error!",
+          text: errorMessage,
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+      
+        // Reset loading state
+        setIsLoading(false);
+      });
+           
+  };
+
+  return (
+    <div>
+      <div className="w-full flex flex-col md:flex-row justify-between gap-5 mt-5">
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant={"outline"}
+              className={cn(
+                "w-full justify-start text-left font-normal h-14",
+                !checkInDate && "text-muted-foreground"
+              )}
+            >
+              <CalendarIcon />
+              {checkInDate ? (
+                format(checkInDate, "PPP")
+              ) : (
+                <span>Select check in date</span>
+              )}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0" align="start">
+            <Calendar
+              mode="single"
+              selected={checkInDate}
+              onSelect={setCheckInDate}
+              initialFocus
+            />
+          </PopoverContent>
+        </Popover>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant={"outline"}
+              className={cn(
+                "w-full justify-start text-left font-normal h-14",
+                !checkOutDate && "text-muted-foreground"
+              )}
+            >
+              <CalendarIcon />
+              {checkOutDate ? (
+                format(checkOutDate, "PPP")
+              ) : (
+                <span>Select check out date</span>
+              )}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0" align="start">
+            <Calendar
+              mode="single"
+              selected={checkOutDate}
+              onSelect={setCheckOutDate}
+              initialFocus
+            />
+          </PopoverContent>
+        </Popover>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-5">
+        <div className="flex items-center gap-1 border border-gray-200 p-2 rounded-md shadow-sm">
+          <UserRound color="#B89146" size={20} />
+          <input
+            type="number"
+            placeholder="Adults"
+            className="p-2 focus:outline-none w-full"
+            value={adults}
+            onChange={(e) => setAdults(e.target.value)}
+          />
+        </div>
+        <div className="flex items-center gap-1 border border-gray-200 p-2 rounded-md shadow-sm">
+          <UserRound color="#B89146" size={20} />
+          <input
+            type="number"
+            placeholder="Children (e.g. 0)"
+            className="p-2 focus:outline-none w-full"
+            value={children}
+            onChange={(e) => setChildren(e.target.value)}
+          />
+        </div>
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              role="combobox"
+              aria-expanded={open}
+              className="w-full justify-between h-14"
+            >
+              {value
+                ? rooms.find((room) => room.title === value)?.title
+                : "Select room..."}
+              <ChevronsUpDown className="opacity-50" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-full p-0">
+            <Command>
+              <CommandInput placeholder="Search rooms..." className="h-9" />
+              <CommandList>
+                <CommandEmpty>No rooms found.</CommandEmpty>
+                <CommandGroup>
+                  {rooms.map((room) => (
+                    <CommandItem
+                      key={room.title}
+                      value={room.title}
+                      onSelect={(currentValue) => {
+                        setValue(currentValue === value ? "" : currentValue);
+                        setOpen(false);
+                      }}
+                    >
+                      {room.title}
+                      <Check
+                        className={cn(
+                          "ml-auto",
+                          value === rooms.title ? "opacity-100" : "opacity-0"
+                        )}
+                      />
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              </CommandList>
+            </Command>
+          </PopoverContent>
+        </Popover>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-5">
+        <div className="flex items-center gap-1 border border-gray-200 p-2 rounded-md shadow-sm">
+          <UserRound color="#B89146" size={20} />
+          <input
+            type="text"
+            placeholder="Full Name"
+            className="p-2 focus:outline-none w-full"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+          />
+        </div>
+        <div className="flex items-center gap-1 border border-gray-200 p-2 rounded-md shadow-sm">
+          <Mail color="#B89146" size={20} />
+          <input
+            type="email"
+            placeholder="Email address"
+            className="p-2 focus:outline-none w-full"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className="flex items-center gap-1 border border-gray-200 p-2 rounded-md shadow-sm">
+          <Phone color="#B89146" size={20} />
+          <input
+            type="number"
+            placeholder="Phone Number"
+            className="p-2 focus:outline-none w-full"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          />
+        </div>
+      </div>
+      <div className="mt-5 space-y-5">
+        <div className="flex items-start gap-1 border border-gray-200 p-2 rounded-md shadow-sm">
+          <MapPin color="#B89146" size={20} className="mt-2.5" />
+          <textarea
+            type="text"
+            placeholder="Address"
+            className="p-2 focus:outline-none w-full"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
+        </div>
+        <div className="flex items-start gap-1 border border-gray-200 p-2 rounded-md shadow-sm">
+          <MessageCircle color="#B89146" size={20} className="mt-2.5" />
+          <textarea
+            type="text"
+            placeholder="Remarks"
+            className="p-2 focus:outline-none w-full"
+            value={remarks}
+            onChange={(e) => setRemarks(e.target.value)}
+          />
+        </div>
+      </div>
+      <Button
+        type="button"
+        className="mt-10 bg-primary hover:bg-transparent hover:text-headingColor h-[50px] text-[16px] uppercase text-white font-medium hover:gap-6 transition-all hover:border"
+        onClick={handleSubmit}
+        disabled={isLoading} // Disable button when loading
+      >
+        {isLoading ? (
+          <Loader2 className="animate-spin mr-2" size={20} />
+        ) : (
+          "Book Now"
+        )}
+        <MoveRight size={20} />
+      </Button>
+    </div>
+  );
+};
+
+export default BookingForm;
