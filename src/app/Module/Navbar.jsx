@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { MenuIcon, X } from "lucide-react";
+import { ArrowRight, MenuIcon, X } from "lucide-react";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -19,6 +19,7 @@ import { ShinyButton } from "@/components/magicui/shiny-button";
 import { SparklesText } from "@/components/magicui/sparkles-text";
 import Link from "next/link";
 import Social from "./Contact/Social";
+import { Button } from "@/components/ui/button";
 
 const items = [
   {
@@ -66,20 +67,18 @@ export default function Navbar() {
   return (
     <div
       className={`sticky top-0 z-50 ${
-        isScrolled
-          ? "bg-white"
-          : "bg-transparent border-b border-[#37393965]"
+        isScrolled ? "bg-white" : "bg-transparent border-b border-[#37393965]"
       } transition-colors duration-300 relative`}
     >
       <header
-        className={`max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-3 items-center p-2 rounded-md ${
+        className={`max-w-[94em] mx-auto grid grid-cols-3 items-center p-2 rounded-md ${
           isScrolled ? "backdrop-blur-md" : ""
         }`}
       >
         {/* <div className="hidden lg:block">
           <Social color={"#b89146"} backgroundColor={"white"} />
         </div> */}
-         <HeaderDrawer
+        <HeaderDrawer
           open={headerOpen}
           setOpen={setHeaderOpen}
           drawerBtn={() => {
@@ -96,7 +95,7 @@ export default function Navbar() {
                 <div className="w-16 h-[0.30rem] flex-shrink-0 rounded-full bg-gray-600 my-4" />
               </div>
             )}
-            <div className="max-w-7xl xl:mx-auto gap-4 mx-2">
+            <div className="max-w-[94em] xl:mx-auto gap-4 px-2">
               <div className="flex justify-between items-center align-middle border-b">
                 {
                   <button
@@ -106,13 +105,15 @@ export default function Navbar() {
                     <X />
                   </button>
                 }
-                <a href={"/"}><Image
-                  className="md:mx-auto text-2xl mb-2 mr-3"
-                  src={logoSrc1} // Use the dynamic logo here too
-                  alt="logo"
-                  width={150}
-                  height={120}
-                /></a>
+                <a href={"/"}>
+                  <Image
+                    className="md:mx-auto text-2xl mb-2 mr-3"
+                    src={logoSrc1} // Use the dynamic logo here too
+                    alt="logo"
+                    width={150}
+                    height={120}
+                  />
+                </a>
               </div>
               <div className="flex justify-between pt-2 pb-4">
                 <nav className="flex gap-8 w-[40%] md:w-[30%] lg:w-[20%]">
@@ -221,11 +222,7 @@ export default function Navbar() {
             </div>
           </DrawerContent>
         </HeaderDrawer>
-        <a
-          href="/"
-          aria-label="Go to homepage"
-          className="justify-self-end lg:justify-self-center"
-        >
+        <a href="/" aria-label="Go to homepage" className="justify-self-center">
           <Image
             src={isScrolled ? logoSrc1 : logoSrc}
             alt="Logo"
@@ -233,9 +230,20 @@ export default function Navbar() {
             height={120}
           />
         </a>
-       
-        <div className="hidden lg:block justify-self-end">
-          <Social color={"#b89146"} backgroundColor={"white"} />
+        <div className="flex items-center justify-self-end gap-[5px]">
+          <div className="hidden xl:block">
+            <Social color={"#b89146"} backgroundColor={"white"} />
+          </div>
+          <div className="group relative cursor-pointer p-2 w-32 border bg-white rounded-full overflow-hidden text-black text-center font-semibold">
+            <span className="translate-x-1 group-hover:translate-x-12 group-hover:opacity-0 transition-all duration-300 inline-block">
+              Book Now
+            </span>
+            <div className="flex gap-2 text-white z-10 items-center absolute top-0 h-full w-full justify-center translate-x-12 opacity-0 group-hover:-translate-x-1 group-hover:opacity-100 transition-all duration-300">
+              <span>Book Now</span>
+              <ArrowRight size={18} />
+            </div>
+            <div className="absolute top-[40%] left-[12%] h-2 w-2 group-hover:h-full group-hover:w-full rounded-lg bg-primary  scale-[1] dark:group-hover:bg-[#e7cb6e] group-hover:bg-primary group-hover:scale-[1.8] transition-all duration-300 group-hover:top-[0%] group-hover:left-[0%] "></div>
+          </div>
         </div>
       </header>
     </div>
