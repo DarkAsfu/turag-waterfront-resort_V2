@@ -59,27 +59,27 @@ const Banner = () => {
                 {/* Content */}
                 <div className="relative mx-auto max-w-5xl px-4 py-32 flex justify-center items-center text-center min-h-[700px]">
                   <div className="space-y-8">
-                    <p className="mt-4 text-[#f7c05c] text-lg md:text-xl lg:text-2xl font-semibold z-10 mx-auto">
+                    <p className="mt-4 text-[#f7c05c] text-lg md:text-xl lg:text-xl font-semibold z-10 mx-auto">
                     {index === 0
-                        ? "Turag Waterfront Resort Gazipur"
+                        ? "Turag Waterfront Resort"
                         : index === 1
-                        ? "Turag Waterfront Resort Gazipur"
-                        : "Turag Waterfront Resort Dhaka Venue"}
+                        ? "Turag Waterfront Resort"
+                        : "Turag Dhaka Venue"}
                       
                     </p>
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-white capitalize tracking-wide">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[50px] font-semibold text-white uppercase tracking-wide">
                       {index === 0
-                        ? "Stay in Cozy Wooden Cottages by the River"
+                        ? "Stay in Cozy Wooden Cottages by the Turag River"
                         : index === 1
-                        ? "Experience the beauty of nature by the Turag River"
-                        : "Experience Like Your Own Home"}
+                        ? "Create unforgettable memories by Riverview Resort"
+                        : "Experience Like Your Own Home at Turag Dhaka Venue"}
                     </h1>
                     <div className="mt-8 flex justify-center flex-wrap gap-4 text-center">
                       <a
                         href="/about"
                         className="block rounded-sm bg-primary px-8 sm:px-12 py-2 sm:py-3 text-sm sm:text-base md:text-lg font-medium text-white shadow-sm hover:bg-[#f7c05c] focus:ring-3 focus:outline-hidden sm:w-auto uppercase"
                       >
-                        Read More
+                        About Us
                       </a>
                     </div>
                   </div>

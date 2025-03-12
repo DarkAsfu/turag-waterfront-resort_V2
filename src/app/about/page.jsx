@@ -15,7 +15,7 @@ const About = () => {
           Turag Waterfront Resort, Gazipur
         </h1>
         <p className="text-[15px] text-[#333334] mb-6 max-w-4xl mx-auto text-center leading-7">
-          Turag Waterfront Resort, located 18KM from Gazipur Bypass, Dhaka,
+          Turag Waterfront Resort in Gazipur Dhaka, located 18KM from Gazipur Bypass, Dhaka,
           offers a peaceful retreat by the Turag River on 36 bighas of land,
           near Bhawal National Park. Surrounded by lush greenery and serene
           river views, it’s the perfect escape from city life. The resort

@@ -21,8 +21,7 @@ const Footer = () => {
               height={120}
             />
             <p className="text-[15px] text-[#cccccc] mt-5 max-w-[300px]">
-              Ensuring world class Eco Lifestyle & hospitality service since
-              2009.
+            Where Nature Meets Comfort. Experience Peace & Adventure at the Best Resort in Gazipur.
             </p>
           </div>
           <div>

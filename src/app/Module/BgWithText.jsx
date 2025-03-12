@@ -12,7 +12,7 @@ const BgWithText = () => {
 
       {/* Content */}
       <div className="relative text-[#f8f9fa] max-w-4xl mx-auto md:leading-10 tracking-wide text-center z-10 text-[16px] md:text-[24px] px-4">
-        <p>In this peaceful and tranquil environment, you can have the glimpse of wildlife, firefly processions at night and according to the rules of the resort, during moonlight no light is lit in outside. It is one of the best holiday destination to enjoy the full moon and rain in the rainy season; also to breathe in the fresh air.
+        <p>Turag Waterfront Resort is the best resort in Gazipur Dhaka, offering a peaceful place by the Turag River. It is the perfect place to relax and enjoy nature away from the busy city. Our cozy river-view wooden cottages let you wake up to fresh air and the sound of flowing water. Stay close to nature while enjoying modern comforts. 
         </p>
       </div>
     </div>
