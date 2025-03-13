@@ -68,10 +68,10 @@ const RoomsCard = ({ rooms }) => {
               <div
                 key={idx}
                 className="relative group flex flex-col bg-white border border-gray-300 rounded-lg overflow-hidden"
-                style={{ height: "500px" }} // Fixed height for the card
+                style={{ height: "357px" }} // Fixed height for the card
               >
                 <Link href={`/room-details/${room.slug}`} className="flex flex-col flex-1">
-                  <div className="relative w-full h-[500px]">
+                  <div className="relative w-full h-[357px]">
                     {/* Fixed height for the image container */}
                     {featuredImage ? (
                       <Image
@@ -88,14 +88,14 @@ const RoomsCard = ({ rooms }) => {
                     )}
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#0e1317]"></div>
                   </div>
-                  <div className="absolute group-hover:translate-y-[-62px] transition-all duration-300 ease-in-out bottom-[3px] px-[35px] pb-8 z-10">
+                  <div className="absolute group-hover:translate-y-[-62px] transition-all duration-500 ease-in-out bottom-[3px] px-[35px] pb-8 z-10">
                     <h6 className="text-white font-semibold">
                       <span className="text-primary">BDT {room.cost}+++</span> / Night
                     </h6>
-                    <h4 className="text-[24px] text-white font-semibold">{room.title}</h4>
+                    <h4 className="text-[20px] text-white font-[500] capitalize">{room.title}</h4>
                   </div>
                 </Link>
-                <div className="absolute bottom-[-60px] w-full px-[35px] pb-10 opacity-0 group-hover:opacity-100 group-hover:bottom-0 transition-all duration-300 ease-in-out">
+                <div className="absolute bottom-[-60px] w-full px-[35px] pb-10 opacity-0 group-hover:opacity-100 group-hover:bottom-0 transition-all duration-500 ease-in-out">
                   <hr className="pb-4 border-[#999]" />
                   <Link href="/book-now" className="flex items-center gap-1 uppercase font-semibold text-[14px] w-full text-[#999]">
                     <ChevronRight size={16} className="text-[#999] border rounded-full border-[#999]" />{" "}
