@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 
-const useActivities = () => {
+const useActivities = (venue) => {
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   useEffect(() => {
     const fetchActivities = async () => {
       try {
-        const response = await fetch('https://api.turagwaterfrontresort.com/api/activity/');
+        const response = await fetch(`https://api.turagwaterfrontresort.com/api/activity/?venue=${venue}`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -21,7 +21,7 @@ const useActivities = () => {
     };
 
     fetchActivities();
-  }, []);
+  }, [venue]);
 
   return { activities, loading, error };
 };
