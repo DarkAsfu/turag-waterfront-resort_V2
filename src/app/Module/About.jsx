@@ -55,14 +55,14 @@ const About = () => {
           <HeroVideoDialog
             className="block dark:hidden"
             animationStyle="from-center"
-            videoSrc="https://www.youtube.com/embed/wMzVIOCFhm0?si=bw1rQFXYz6yjt6US"
+            videoSrc="https://www.youtube.com/embed/q7uPfGn__Jk?si=v0cemaXCn_BWaT3i"
             thumbnailSrc={aboutDhaka.src} // Use .src to get the resolved path
             thumbnailAlt="Turag Waterfront Resort"
           />
           <HeroVideoDialog
             className="hidden dark:block"
             animationStyle="from-center"
-            videoSrc="https://www.youtube.com/embed/qh3NGpYRG3I?si=4rb-zSdDkVK9qxxb"
+            videoSrc="https://www.youtube.com/embed/q7uPfGn__Jk?si=v0cemaXCn_BWaT3i"
             thumbnailSrc={aboutDhaka.src}
             thumbnailAlt="Turag Waterfront Resort"
           />

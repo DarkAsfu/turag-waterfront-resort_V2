@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import usePayment from "@/hooks/usePayment";
+import Swal from "sweetalert2";
 
 const PaymentForm = () => {
   // Add loading state for form submission
@@ -45,12 +46,30 @@ const PaymentForm = () => {
         body: formData,
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        throw new Error("Payment submission failed");
+        let errorMessage = "Payment submission failed";
+        
+        if (data) {
+          errorMessage = Object.entries(data)
+            .map(([key, value]) => `${key}: ${value.join(", ")}`)
+            .join("\n");
+        }
+
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: errorMessage,
+        });
+        return;
       }
 
-      const data = await response.json();
-      console.log("Payment successful:", data);
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "Payment submitted successfully!",
+      });
       
       // Reset form
       setPaymentMethod("");
@@ -60,6 +79,11 @@ const PaymentForm = () => {
       setFile(null);
       
     } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "An unexpected error occurred. Please try again.",
+      });
       console.error("Error submitting payment:", error);
     } finally {
       setIsSubmitting(false);
