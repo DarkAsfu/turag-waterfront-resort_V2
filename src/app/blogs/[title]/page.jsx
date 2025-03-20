@@ -10,7 +10,15 @@ import RecentBlogs from "@/app/Module/RecentBlogs";
 const BlogDetails = () => {
   const { title } = useParams();
   const { blogDetails, isLoading } = useDetailsBlog(title);
+
+  // Default values for metadata (this is safe because we'll use empty strings or defaults)
+  const metadata = useMetadata(
+    blogDetails?.title || "",
+    "A resort by nature"
+  );
+
   console.log(blogDetails);
+
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-[400px]">
@@ -18,13 +26,14 @@ const BlogDetails = () => {
       </div>
     );
   }
+
   const imageUrl = blogDetails
     ? `https://api.turagwaterfrontresort.com${blogDetails?.image}`
     : topview; // Fallback image if blogDetails.image is not available
 
   // Fallback alt text if blogDetails?.alt_text is not available
   const altText = blogDetails?.alt_text || "Blog Image";
-  const metadata = useMetadata(`${blogDetails?.title}`, "A resort by nature");
+
   return (
     <div>
       {/* Banner Section */}

@@ -234,7 +234,7 @@ export default function Navbar() {
           <div className="hidden xl:block">
             <Social color={"#b89146"} backgroundColor={"white"} />
           </div>
-          <Link href="book-now" className="hidden md:block group relative cursor-pointer p-2 w-32 border bg-white rounded-full overflow-hidden text-black text-center font-semibold">
+          <Link href="/book-now" className="hidden md:block group relative cursor-pointer p-2 w-32 border bg-white rounded-full overflow-hidden text-black text-center font-semibold">
             <span className="translate-x-1 group-hover:translate-x-12 group-hover:opacity-0 transition-all duration-300 inline-block">
               Book Now
             </span>

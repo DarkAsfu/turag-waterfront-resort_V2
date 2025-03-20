@@ -157,3 +157,34 @@
 }
 
 }
+.custom-radio,
+  .custom-checkbox {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #B89146; /* Custom border color */
+    border-radius: 50%; /* Round shape for radio buttons */
+    cursor: pointer;
+    position: relative;
+  }
+
+  .custom-checkbox {
+    border-radius: 4px; /* Square shape for checkboxes */
+  }
+
+  .custom-radio:checked::before,
+  .custom-checkbox:checked::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    background-color: #B89146; /* Custom fill color */
+    border-radius: 50%; /* Round shape for radio buttons */
+  }
+
+  .custom-checkbox:checked::before {
+    border-radius: 2px; /* Square shape for checkboxes */
+  }

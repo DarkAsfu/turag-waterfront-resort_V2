@@ -8,12 +8,11 @@ const RecentBlogs = () => {
   return (
     <div>
       {blogs.map((blog, index) => {
-        console.log(blog.image);
         return (
           <Link href={`/blogs/${blog.slug}`} key={index} className="flex md:block lg:flex gap-3 border-b pb-4">
             <div className="w-[40%] lg:w-[25%]">
               <Image
-                src={`http:localhost:8000${blog.image}`}
+                src={`https://api.turagwaterfrontresort.com/${blog.image}`}
                 width={1000}
                 height={1000}
                 alt={blog.alt_text}
